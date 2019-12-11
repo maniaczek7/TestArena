@@ -204,7 +204,7 @@ CREATE TABLE `comment` (
   `status` tinyint(1) UNSIGNED NOT NULL,
   `content` text CHARACTER SET utf8 NOT NULL,
   `create_date` datetime NOT NULL,
-  `modify_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `modify_date` datetime NOT NULL DEFAULT '2012-10-02 14:30:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -437,7 +437,7 @@ CREATE TABLE `file` (
   `extension` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
   `subpath` text COLLATE utf8_unicode_ci NOT NULL,
   `create_date` datetime NOT NULL,
-  `remove_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `remove_date` datetime NOT NULL DEFAULT '2012-10-02 14:30:00',
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -590,8 +590,8 @@ CREATE TABLE `message` (
   `status` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
   `to_status` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
   `from_status` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
-  `create_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `received_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `create_date` datetime NOT NULL DEFAULT '2012-10-02 14:30:00',
+  `received_date` datetime NOT NULL DEFAULT '2012-10-02 14:30:00',
   `subject` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `content` text CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -1205,7 +1205,7 @@ CREATE TABLE `user` (
   `reset_password` tinyint(1) NOT NULL DEFAULT '0',
   `status` tinyint(2) UNSIGNED NOT NULL DEFAULT '1',
   `create_date` datetime NOT NULL,
-  `last_login_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_login_date` datetime NOT NULL DEFAULT '2012-10-02 14:30:00',
   `token` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `firstname` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lastname` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -2258,4 +2258,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `version`
   ADD CONSTRAINT `fkVersionProjectId` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 COMMIT;
