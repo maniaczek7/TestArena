@@ -13,3 +13,21 @@ Bug reports can be logged at mantis.testarena.pl/my_view_page.php
 
 As of version 2.0.1, TestArena is released under GPLv2.
 Parts of TestArena include libraries from other projects which are used and re-released under their original licence.
+
+
+TESTARENA DOCKER INSTRUCTIONS (they are in docker-compose.yml):
+# clone repository
+# update application.ini (application\configs\application.ini), it won't work without proper settings! You will not see login screen (DB error) or be unable to create user (email or reCaptcha):
+#   DB settings (they are set for local connections using root without password)
+#   SMTP settings (if you are using microsoft (office365) SMTP make sure SMTPSecure type is proper (tls) and port) + email from and to should be the same for Microsoft
+#   reCaptcha settings (https://www.google.com/recaptcha - create public and private keys and paste it into application.ini)
+#   domain (currently set to: 192.168.99.100 - depends on your OS and docker machine settings), if you want to use it elsewhere make sure it points to proper address
+#   cookies (unnecessary)
+# check run.sh end of lines is linux
+# docker-compose up -d
+# docker logs -f testarena --> wait for container to start and initialize services - mysql and apache2 enter RUNNING state (could take some time to download and build container) and CTRL+C to exit logs
+# docker exec -it testarena ./run.sh - if it somehow does not work (try fixing end of lines to linux) login to container and use direct commands to create and populate database (if does not work log in to container and execute commands manually):
+# open in browser: http://192.168.99.100 (or your docker machine IP depending on operation system and settings)
+# default username/pass is: administrator@testarena.pl // 12qwAS
+# logs are in /var/www/htm/cache/application(-logs)/error.log
+# just in case you - can update application.ini directly on container (you will need to install editor eg. vin or nano) and restart apache to take effect (service apache2 start)
